@@ -19,6 +19,7 @@ class Task(models.Model):
         ("LOW", "Low"),
         ("TRIVIAL", "Trivial"),
     )
+
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     deadline = models.DateTimeField()
@@ -27,4 +28,9 @@ class Task(models.Model):
         max_length=7,
         choices=PRIORITY_CHOICES,
         default="MEDIUM"
+    )
+    task_type = models.ForeignKey(
+        TaskType,
+        on_delete=models.CASCADE,
+        related_name="task_types"
     )
