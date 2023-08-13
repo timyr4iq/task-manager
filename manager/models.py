@@ -53,3 +53,6 @@ class Worker(AbstractUser):
         on_delete=models.CASCADE,
         related_name="positions"
     )
+
+    class Meta:
+        ordering = ["username"]
