@@ -12,6 +12,13 @@ class TaskType(models.Model):
 
 
 class Task(models.Model):
+    PRIORITY_CHOICES = (
+        ("URGENT", "Urgent"),
+        ("HIGH", "High"),
+        ("MEDIUM", "Medium"),
+        ("LOW", "Low"),
+        ("TRIVIAL", "Trivial"),
+    )
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     deadline = models.DateTimeField()
