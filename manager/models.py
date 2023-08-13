@@ -60,3 +60,6 @@ class Task(models.Model):
 
     class Meta:
         ordering = ["deadline"]
+
+    def __str__(self):
+        return f"{self.name}: {self.description}, deadline: {self.deadline}"
