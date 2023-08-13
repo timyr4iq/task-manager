@@ -12,6 +12,27 @@ class TaskType(models.Model):
         return self.name
 
 
+class Position(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class Worker(AbstractUser):
+    position = models.ForeignKey(
+        Position,
+        on_delete=models.CASCADE,
+        related_name="workers"
+    )
+
+    class Meta:
+        ordering = ["username"]
+
+
 class Task(models.Model):
     PRIORITY_CHOICES = (
         ("URGENT", "Urgent"),
@@ -33,26 +54,6 @@ class Task(models.Model):
     task_type = models.ForeignKey(
         TaskType,
         on_delete=models.CASCADE,
-        related_name="task_types"
+        related_name="tasks"
     )
-
-
-class Position(models.Model):
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
-
-class Worker(AbstractUser):
-    position = models.ForeignKey(
-        Position,
-        on_delete=models.CASCADE,
-        related_name="positions"
-    )
-
-    class Meta:
-        ordering = ["username"]
+    assignees = models.ManyToManyField(Worker, related_name="tasks")
